@@ -1,4 +1,4 @@
-const TimeStamp = require('./_timeStampsModel.js');
+const TimeStamp = require('../models').timeStampsModel;
 
 async function createTimeStamp(year, month, day, time) {
   await TimeStamp.create({

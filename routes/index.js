@@ -1,3 +1,3 @@
-const timestamps = require('./timestamps.js');
+const tsRouter = require('./tsRouter.js');
 
-module.exports = { timestamps };
+module.exports = { tsRouter };

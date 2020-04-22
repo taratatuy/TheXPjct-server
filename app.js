@@ -12,6 +12,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
-app.use('/timestamps', routes.timestamps);
+app.use('/timestamps', routes.tsRouter);
 
 app.listen(config.PORT, console.log(`Listening on ${config.PORT}`));
