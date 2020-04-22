@@ -1,4 +1,5 @@
 const express = require('express');
+const core = require('../core');
 
 const database = require('../database');
 const config = require('../config.js');
@@ -6,13 +7,12 @@ const config = require('../config.js');
 const router = express.Router();
 
 router.post('/create', async (req, res) => {
-  // console.log(config.PGPASS, req.body);
   if (config.PGPASS != req.body.password)
-    return res.status(200).json({ res: 'wrong password' });
+    return res.status(401).json({ res: 'Wrong password.' });
 
-  await database.createTimeStamp(req.body.year, req.body.month, req.body.time);
+  await core.createTS();
 
-  res.status(200).json({ res: 'Logged in!' });
+  res.status(201).json({ res: 'Created.' });
 });
 
 router.post('/findMonth', async (req, res) => {

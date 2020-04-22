@@ -21,6 +21,6 @@ new Promise((resolve, reject) => {
   console.log('Database connection error: ', err);
 });
 
-const methods = require('./_timeStampsMethods');
+const _timeStampsMethods = require('./_timeStampsMethods');
 
-module.exports = { ...methods };
+module.exports = { ..._timeStampsMethods };

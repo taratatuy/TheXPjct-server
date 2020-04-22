@@ -2,10 +2,7 @@ POST http://localhost:10222/timestamps/create
 Content-Type: application/json
 
 {
-    "password": "admin",
-    "year": "y2",
-    "month": "m1",
-    "time": "t1"
+    "password": "admin"
 }
 
 ###
