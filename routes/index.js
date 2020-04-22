@@ -1,3 +1,3 @@
-const auth = require('./auth.js');
+const timestamps = require('./timestamps.js');
 
-module.exports = { auth };
+module.exports = { timestamps };
