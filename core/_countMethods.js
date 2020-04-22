@@ -1,7 +1,7 @@
-let database = require('../database');
+const database = require('../database');
 
 async function createTS() {
-  let now = new Date();
+  const now = new Date();
 
   await database.createTimeStamp(
     now.getFullYear(),
@@ -9,10 +9,18 @@ async function createTS() {
     now.getDate(),
     getClearTime(now)
   );
+
+  await database.setLastCommitTime(now);
+}
+
+async function getLastTime() {
+  const output = await database.getLastCommitTime();
+
+  return output;
 }
 
 function getClearTime(date) {
   return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
 }
 
-module.exports = { createTS };
+module.exports = { createTS, getLastTime };

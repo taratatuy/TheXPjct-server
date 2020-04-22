@@ -7,6 +7,10 @@ Content-Type: application/json
 
 ###
 
+GET http://localhost:10222/timestamps/lastCommitTime
+
+###
+
 POST http://localhost:10222/timestamps/findMonth
 Content-Type: application/json
 

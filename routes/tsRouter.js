@@ -15,6 +15,11 @@ router.post('/create', async (req, res) => {
   res.status(201).json({ res: 'Created.' });
 });
 
+router.get('/lastCommitTime', async (req, res) => {
+  const output = await core.getLastTime();
+  res.status(200).json({ lastCommitTime: output });
+});
+
 router.post('/findMonth', async (req, res) => {
   let output = await database.findTSMonth(req.body.year, req.body.month);
 
