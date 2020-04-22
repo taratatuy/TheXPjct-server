@@ -1,0 +1,27 @@
+GET http://localhost:10222/create
+
+###
+
+GET http://localhost:10222/find
+
+###
+
+POST http://localhost:10222/auth/create
+Content-Type: application/json
+
+{
+    "password": "admin",
+    "year": "y1",
+    "month": "m3",
+    "time": "t1"
+}
+
+###
+
+POST http://localhost:10222/auth/findMonth
+Content-Type: application/json
+
+{
+    "year": "y1",
+    "month": "m2"
+}
