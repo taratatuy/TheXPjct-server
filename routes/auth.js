@@ -21,4 +21,10 @@ router.post('/findMonth', async (req, res) => {
   res.status(200).send(output);
 });
 
+router.post('/findYear', async (req, res) => {
+  let output = await database.findTSYear(req.body.year);
+
+  res.status(200).send(output);
+});
+
 module.exports = router;

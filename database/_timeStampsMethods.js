@@ -17,4 +17,12 @@ async function findTSMonth(year, month) {
   return output;
 }
 
-module.exports = { createTimeStamp, findTSMonth };
+async function findTSYear(year) {
+  let output = await TimeStamp.find({
+    year: year,
+  });
+
+  return output;
+}
+
+module.exports = { createTimeStamp, findTSMonth, findTSYear };

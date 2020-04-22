@@ -25,3 +25,12 @@ Content-Type: application/json
     "year": "y1",
     "month": "m2"
 }
+
+###
+
+POST http://localhost:10222/auth/findYear
+Content-Type: application/json
+
+{
+    "year": "111"
+}
