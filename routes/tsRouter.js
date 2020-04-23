@@ -1,7 +1,6 @@
 const express = require('express');
 const core = require('../core');
 
-const database = require('../database');
 const config = require('../config.js');
 
 const router = express.Router();
@@ -20,15 +19,23 @@ router.get('/lastCommitTime', async (req, res) => {
   res.status(200).json({ lastCommitTime: output });
 });
 
-router.post('/findMonth', async (req, res) => {
-  let output = await database.findTSMonth(req.body.year, req.body.month);
+router.post('/countInMonth', async (req, res) => {
+  const output = await core.countInMonth(req.body.year, req.body.month);
+  res.status(200).json({ CountInMonth: output });
+});
 
+router.post('/countInYear', async (req, res) => {
+  const output = await core.countInYear(req.body.year);
+  res.status(200).json({ CountInYear: output });
+});
+
+router.post('/findMonth', async (req, res) => {
+  const output = await core.getMonth(req.body.year, req.body.month);
   res.status(200).send(output);
 });
 
 router.post('/findYear', async (req, res) => {
-  let output = await database.findTSYear(req.body.year);
-
+  const output = await core.getYear(req.body.year);
   res.status(200).send(output);
 });
 

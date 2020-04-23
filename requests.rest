@@ -11,12 +11,31 @@ GET http://localhost:10222/timestamps/lastCommitTime
 
 ###
 
+POST http://localhost:10222/timestamps/countInMonth
+Content-Type: application/json
+
+{
+    "year": "2020",
+    "month": "3"
+}
+
+###
+
+POST http://localhost:10222/timestamps/countInYear
+Content-Type: application/json
+
+{
+    "year": "2020"
+}
+
+###
+
 POST http://localhost:10222/timestamps/findMonth
 Content-Type: application/json
 
 {
-    "year": "y1",
-    "month": "m2"
+    "year": "2020",
+    "month": "3"
 }
 
 ###
