@@ -19,14 +19,24 @@ router.get('/lastCommitTime', async (req, res) => {
   res.status(200).json({ lastCommitTime: output });
 });
 
-router.post('/countInMonth', async (req, res) => {
-  const output = await core.countInMonth(req.body.year, req.body.month);
-  res.status(200).json({ CountInMonth: output });
+router.post('/countTimesInMonth', async (req, res) => {
+  const output = await core.countTimesInMonth(req.body.year, req.body.month);
+  res.status(200).json({ CountTimesInMonth: output });
 });
 
-router.post('/countInYear', async (req, res) => {
-  const output = await core.countInYear(req.body.year);
-  res.status(200).json({ CountInYear: output });
+router.post('/countTimesInYear', async (req, res) => {
+  const output = await core.countTimesInYear(req.body.year);
+  res.status(200).json({ CountTimesInYear: output });
+});
+
+router.post('/countDaysInMonth', async (req, res) => {
+  const output = await core.countDaysInMonth(req.body.year, req.body.month);
+  res.status(200).json({ CountDaysInMonth: output });
+});
+
+router.post('/countDaysInYear', async (req, res) => {
+  const output = await core.countDaysInYear(req.body.year);
+  res.status(200).json({ CountDaysInYear: output });
 });
 
 router.post('/findMonth', async (req, res) => {
@@ -36,6 +46,11 @@ router.post('/findMonth', async (req, res) => {
 
 router.post('/findYear', async (req, res) => {
   const output = await core.getYear(req.body.year);
+  res.status(200).send(output);
+});
+
+router.get('/findAllTime', async (req, res) => {
+  const output = await core.getAllTimeTS();
   res.status(200).send(output);
 });
 

@@ -11,7 +11,7 @@ GET http://localhost:10222/timestamps/lastCommitTime
 
 ###
 
-POST http://localhost:10222/timestamps/countInMonth
+POST http://localhost:10222/timestamps/countTimesInMonth
 Content-Type: application/json
 
 {
@@ -21,11 +21,30 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:10222/timestamps/countInYear
+POST http://localhost:10222/timestamps/countTimesInYear
 Content-Type: application/json
 
 {
     "year": "2020"
+}
+
+###
+
+POST http://localhost:10222/timestamps/countDaysInMonth
+Content-Type: application/json
+
+{
+    "year": "2020",
+    "month": "3"
+}
+
+###
+
+POST http://localhost:10222/timestamps/countDaysInYear
+Content-Type: application/json
+
+{
+    "year": "2019"
 }
 
 ###
@@ -45,4 +64,12 @@ Content-Type: application/json
 
 {
     "year": "2020"
+}
+
+###
+
+GET http://localhost:10222/timestamps/findAllTime
+Content-Type: application/json
+
+{
 }

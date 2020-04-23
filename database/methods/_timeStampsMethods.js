@@ -9,8 +9,14 @@ async function createTimeStamp(year, month, day, time) {
   });
 }
 
+async function findAllTimeTS() {
+  const output = await TimeStamp.find({});
+
+  return output;
+}
+
 async function findTSMonth(year, month) {
-  let output = await TimeStamp.find({
+  const output = await TimeStamp.find({
     year: year,
     month: month,
   });
@@ -19,11 +25,11 @@ async function findTSMonth(year, month) {
 }
 
 async function findTSYear(year) {
-  let output = await TimeStamp.find({
+  const output = await TimeStamp.find({
     year: year,
   });
 
   return output;
 }
 
-module.exports = { createTimeStamp, findTSMonth, findTSYear };
+module.exports = { createTimeStamp, findTSMonth, findTSYear, findAllTimeTS };

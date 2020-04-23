@@ -7,26 +7,55 @@ async function createTS() {
     now.getFullYear(),
     now.getMonth(),
     now.getDate(),
-    ClearTime(now)
+    _clearTime(now)
   );
 
   await database.setLastCommitTime(now);
 }
 
-async function countInMonth(year, month) {
+async function countTimesInMonth(year, month) {
   const foundInMonth = await database.findTSMonth(year, month);
 
-  return countTimes(foundInMonth);
+  return _countTimes(foundInMonth);
 }
 
-async function countInYear(year) {
-  const foundInMonth = await database.findTSYear(year);
+async function countTimesInYear(year) {
+  const foundInYear = await database.findTSYear(year);
 
-  return countTimes(foundInMonth);
+  return _countTimes(foundInYear);
 }
 
-async function countTimes(array) {
-  return Array.from(array).length;
+async function countDaysInMonth(year, month) {
+  const foundInMonth = await database.findTSMonth(year, month);
+
+  return _countDays(foundInMonth);
+}
+
+async function countDaysInYear(year) {
+  const foundInYear = await database.findTSYear(year);
+
+  return _countDays(foundInYear);
+}
+
+function _countTimes(historyArray) {
+  return Array.from(historyArray).length;
+}
+
+function _countDays(historyArray) {
+  let setOfDays = new Set();
+  const array = Array.from(historyArray);
+
+  array.forEach((commit) => {
+    setOfDays.add(commit.day);
+  });
+
+  return setOfDays.size;
+}
+
+async function getAllTimeTS() {
+  const output = await database.findAllTimeTS();
+
+  return output;
 }
 
 async function getLastTime() {
@@ -47,15 +76,18 @@ async function getYear(year) {
   return output;
 }
 
-function ClearTime(date) {
+function _clearTime(date) {
   return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
 }
 
 module.exports = {
   createTS,
   getLastTime,
-  countInMonth,
-  countInYear,
+  countTimesInMonth,
+  countTimesInYear,
+  countDaysInMonth,
+  countDaysInYear,
   getMonth,
   getYear,
+  getAllTimeTS,
 };
