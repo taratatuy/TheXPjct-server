@@ -25,7 +25,7 @@ POST http://localhost:10222/timestamps/countTimesInYear
 Content-Type: application/json
 
 {
-    "year": "2020"
+    "year": "2019"
 }
 
 ###
@@ -44,7 +44,7 @@ POST http://localhost:10222/timestamps/countDaysInYear
 Content-Type: application/json
 
 {
-    "year": "2019"
+    "year": "2020"
 }
 
 ###
@@ -56,6 +56,21 @@ Content-Type: application/json
     "year": "2020",
     "month": "3"
 }
+
+###
+
+POST http://localhost:10222/timestamps/findYear
+Content-Type: application/json
+
+{
+    "year": "2020"
+}
+
+###
+
+GET http://localhost:10222/timestamps/findAllTime
+Content-Type: application/json
+
 
 ###
 
@@ -113,20 +128,6 @@ Content-Type: application/json
 {
     "year": "2020"
 }
-
-###
-
-POST http://localhost:10222/timestamps/findYear
-Content-Type: application/json
-
-{
-    "year": "2020"
-}
-
-###
-
-GET http://localhost:10222/timestamps/findAllTime
-Content-Type: application/json
 
 ###
 

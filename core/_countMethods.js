@@ -10,7 +10,14 @@ async function createTS() {
     _clearTime(now)
   );
 
-  await database.setLastCommitTime(now);
+  await database.setLastCommitTime(
+    _parseDate({
+      year: now.getFullYear(),
+      month: now.getMonth(),
+      day: now.getDate(),
+      time: _clearTime(now),
+    }).toISOString()
+  );
 }
 
 async function countTimesInMonth(year, month) {
@@ -74,12 +81,6 @@ async function listOfMonthsInYear(year) {
   return [...listOfMonths];
 }
 
-async function getAllTimeTS() {
-  const output = await database.findAllTimeTS();
-
-  return output;
-}
-
 async function getLastTime() {
   const output = await database.getLastCommitTime();
 
@@ -87,15 +88,21 @@ async function getLastTime() {
 }
 
 async function getMonth(year, month) {
-  const output = await database.findTSMonth(year, month);
+  const monthHistory = await database.findTSMonth(year, month);
 
-  return output;
+  return _commitsHistoryToDateArray(monthHistory);
 }
 
 async function getYear(year) {
-  const output = await database.findTSYear(year);
+  const yearHistory = await database.findTSYear(year);
 
-  return output;
+  return _commitsHistoryToDateArray(yearHistory);
+}
+
+async function getAllTimeTS() {
+  const allTimeHistory = await database.findAllTimeTS();
+
+  return _commitsHistoryToDateArray(allTimeHistory);
 }
 
 async function getMinTimeBetweenMonth(year, month) {
@@ -175,13 +182,24 @@ function _getTimeBetween(history) {
   return timeBetweenArray;
 }
 
-function _parseDate(date) {
+function _commitsHistoryToDateArray(history) {
+  const historyArray = Array.from(history);
+  const dateArray = [];
+
+  historyArray.forEach((commit) => {
+    dateArray.push(_parseDate(commit));
+  });
+
+  return dateArray;
+}
+
+function _parseDate(timeStamp) {
   const GMT = 3;
-  let parsedTime = date.time.split(':');
+  let parsedTime = timeStamp.time.split(':');
   return new Date(
-    date.year,
-    date.month,
-    +date.day + 1,
+    timeStamp.year,
+    timeStamp.month,
+    timeStamp.day,
     (+parsedTime[0] + GMT) % 24,
     parsedTime[1],
     parsedTime[2]
