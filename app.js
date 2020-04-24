@@ -4,7 +4,7 @@ const cors = require('cors');
 const config = require('./config');
 const routes = require('./routes');
 
-require('./database');
+require('./database').connect();
 
 const app = express();
 
