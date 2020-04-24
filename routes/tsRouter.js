@@ -54,4 +54,14 @@ router.get('/findAllTime', async (req, res) => {
   res.status(200).send(output);
 });
 
+router.get('/listOfYears', async (req, res) => {
+  const output = await core.listOfYears();
+  res.status(200).send(output);
+});
+
+router.post('/listOfMonthsInYear', async (req, res) => {
+  const output = await core.listOfMonthsInYear(req.body.year);
+  res.status(200).send(output);
+});
+
 module.exports = router;

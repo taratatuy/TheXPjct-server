@@ -71,5 +71,16 @@ Content-Type: application/json
 GET http://localhost:10222/timestamps/findAllTime
 Content-Type: application/json
 
+###
+
+GET http://localhost:10222/timestamps/listOfYears
+Content-Type: application/json
+
+###
+
+POST http://localhost:10222/timestamps/listOfMonthsInYear
+Content-Type: application/json
+
 {
+    "year": "2020"
 }

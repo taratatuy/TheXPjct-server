@@ -42,7 +42,7 @@ function _countTimes(historyArray) {
 }
 
 function _countDays(historyArray) {
-  let setOfDays = new Set();
+  const setOfDays = new Set();
   const array = Array.from(historyArray);
 
   array.forEach((commit) => {
@@ -50,6 +50,28 @@ function _countDays(historyArray) {
   });
 
   return setOfDays.size;
+}
+
+async function listOfYears() {
+  const listOfYears = new Set();
+  const array = Array.from(await database.findAllTimeTS());
+
+  array.forEach((commit) => {
+    listOfYears.add(commit.year);
+  });
+
+  return [...listOfYears];
+}
+
+async function listOfMonthsInYear(year) {
+  const listOfMonths = new Set();
+  const array = Array.from(await database.findTSYear(year));
+
+  array.forEach((commit) => {
+    listOfMonths.add(commit.month);
+  });
+
+  return [...listOfMonths];
 }
 
 async function getAllTimeTS() {
@@ -90,4 +112,6 @@ module.exports = {
   getMonth,
   getYear,
   getAllTimeTS,
+  listOfYears,
+  listOfMonthsInYear,
 };
