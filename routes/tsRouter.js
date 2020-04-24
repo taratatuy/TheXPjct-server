@@ -88,4 +88,19 @@ router.post('/getMonthAvgTimeBetween', async (req, res) => {
   res.status(200).json({ avgMonthTimeBetween: output });
 });
 
+router.post('/getYearMinTimeBetween', async (req, res) => {
+  const output = await core.getMinTimeBetweenYear(req.body.year);
+  res.status(200).json({ minYearTimeBetween: output });
+});
+
+router.post('/getYearMaxTimeBetween', async (req, res) => {
+  const output = await core.getMaxTimeBetweenYear(req.body.year);
+  res.status(200).json({ maxYearTimeBetween: output });
+});
+
+router.post('/getYearAvgTimeBetween', async (req, res) => {
+  const output = await core.getAVGTimeBetweenYear(req.body.year);
+  res.status(200).json({ avgYearTimeBetween: output });
+});
+
 module.exports = router;

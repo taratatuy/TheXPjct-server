@@ -127,6 +127,35 @@ async function getAVGTimeBetweenMonth(year, month) {
   return _msToDate(summary / timeBetweenArray.length);
 }
 
+async function getMinTimeBetweenYear(year) {
+  const yearHistory = await database.findTSYear(year);
+  const timeBetweenArray = _getTimeBetween(yearHistory);
+  const min = Math.min(...timeBetweenArray);
+
+  return _msToDate(min);
+}
+
+async function getMaxTimeBetweenYear(year) {
+  const yearHistory = await database.findTSYear(year);
+  const timeBetweenArray = _getTimeBetween(yearHistory);
+
+  const max = Math.max(...timeBetweenArray);
+
+  return _msToDate(max);
+}
+
+async function getAVGTimeBetweenYear(year) {
+  const yearHistory = await database.findTSYear(year);
+  const timeBetweenArray = _getTimeBetween(yearHistory);
+
+  let summary = 0;
+  timeBetweenArray.forEach((TS) => {
+    summary += TS;
+  });
+
+  return _msToDate(summary / timeBetweenArray.length);
+}
+
 function _getTimeBetween(history) {
   const historyArray = Array.from(history);
   const timeBetweenArray = [];
@@ -197,4 +226,7 @@ module.exports = {
   getMinTimeBetweenMonth,
   getMaxTimeBetweenMonth,
   getAVGTimeBetweenMonth,
+  getMinTimeBetweenYear,
+  getMaxTimeBetweenYear,
+  getAVGTimeBetweenYear,
 };

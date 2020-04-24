@@ -89,6 +89,33 @@ Content-Type: application/json
 
 ###
 
+POST http://localhost:10222/timestamps/getYearMinTimeBetween
+Content-Type: application/json
+
+{
+    "year": "2020"
+}
+
+###
+
+POST http://localhost:10222/timestamps/getYearMaxTimeBetween
+Content-Type: application/json
+
+{
+    "year": "2020"
+}
+
+###
+
+POST http://localhost:10222/timestamps/getYearAvgTimeBetween
+Content-Type: application/json
+
+{
+    "year": "2020"
+}
+
+###
+
 POST http://localhost:10222/timestamps/findYear
 Content-Type: application/json
 
