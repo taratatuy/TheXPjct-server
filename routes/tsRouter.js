@@ -64,4 +64,28 @@ router.post('/listOfMonthsInYear', async (req, res) => {
   res.status(200).send(output);
 });
 
+router.post('/getMonthMinTimeBetween', async (req, res) => {
+  const output = await core.getMinTimeBetweenMonth(
+    req.body.year,
+    req.body.month
+  );
+  res.status(200).json({ minMonthTimeBetween: output });
+});
+
+router.post('/getMonthMaxTimeBetween', async (req, res) => {
+  const output = await core.getMaxTimeBetweenMonth(
+    req.body.year,
+    req.body.month
+  );
+  res.status(200).json({ maxMonthTimeBetween: output });
+});
+
+router.post('/getMonthAvgTimeBetween', async (req, res) => {
+  const output = await core.getAVGTimeBetweenMonth(
+    req.body.year,
+    req.body.month
+  );
+  res.status(200).json({ avgMonthTimeBetween: output });
+});
+
 module.exports = router;

@@ -98,6 +98,86 @@ async function getYear(year) {
   return output;
 }
 
+async function getMinTimeBetweenMonth(year, month) {
+  const monthHistory = await database.findTSMonth(year, month);
+  const timeBetweenArray = _getTimeBetween(monthHistory);
+  const min = Math.min(...timeBetweenArray);
+
+  return _msToDate(min);
+}
+
+async function getMaxTimeBetweenMonth(year, month) {
+  const monthHistory = await database.findTSMonth(year, month);
+  const timeBetweenArray = _getTimeBetween(monthHistory);
+
+  const max = Math.max(...timeBetweenArray);
+
+  return _msToDate(max);
+}
+
+async function getAVGTimeBetweenMonth(year, month) {
+  const monthHistory = await database.findTSMonth(year, month);
+  const timeBetweenArray = _getTimeBetween(monthHistory);
+
+  let summary = 0;
+  timeBetweenArray.forEach((TS) => {
+    summary += TS;
+  });
+
+  return _msToDate(summary / timeBetweenArray.length);
+}
+
+function _getTimeBetween(history) {
+  const historyArray = Array.from(history);
+  const timeBetweenArray = [];
+  let prevDate;
+
+  historyArray.forEach((commit) => {
+    if (!prevDate) {
+      prevDate = _parseDate(commit);
+      return;
+    }
+
+    const timeBetween = _parseDate(commit) - prevDate;
+    prevDate = _parseDate(commit);
+    timeBetweenArray.push(timeBetween);
+  });
+
+  return timeBetweenArray;
+}
+
+function _parseDate(date) {
+  const GMT = 3;
+  let parsedTime = date.time.split(':');
+  return new Date(
+    date.year,
+    date.month,
+    +date.day + 1,
+    (+parsedTime[0] + GMT) % 24,
+    parsedTime[1],
+    parsedTime[2]
+  );
+}
+
+function _msToDate(ms) {
+  const msMinute = 60 * 1000;
+  const msHour = 60 * msMinute;
+  const msDay = 24 * msHour;
+
+  const days = parseInt(ms / msDay, 10);
+  const hours = parseInt((ms % msDay) / msHour, 10);
+  const minuts = parseInt(((ms % msDay) % msHour) / msMinute, 10);
+  const seconds = parseInt((((ms % msDay) % msHour) % msMinute) / 1000, 10);
+
+  let output = '';
+  if (days != 0) {
+    output += `${days} day(s) `;
+  }
+  output += `${hours}:${minuts}:${seconds}`;
+
+  return output;
+}
+
 function _clearTime(date) {
   return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
 }
@@ -114,4 +194,7 @@ module.exports = {
   getAllTimeTS,
   listOfYears,
   listOfMonthsInYear,
+  getMinTimeBetweenMonth,
+  getMaxTimeBetweenMonth,
+  getAVGTimeBetweenMonth,
 };
