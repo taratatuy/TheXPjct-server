@@ -4,17 +4,17 @@ async function createTS() {
   const now = new Date();
 
   await database.createTimeStamp(
-    now.getFullYear(),
-    now.getMonth(),
-    now.getDate(),
+    now.getUTCFullYear(),
+    now.getUTCMonth(),
+    now.getUTCDate(),
     _clearTime(now)
   );
 
   await database.setLastCommitTime(
     _parseDate({
-      year: now.getFullYear(),
-      month: now.getMonth(),
-      day: now.getDate(),
+      year: now.getUTCFullYear(),
+      month: now.getUTCMonth(),
+      day: now.getUTCDate(),
       time: _clearTime(now),
     }).toISOString()
   );
@@ -53,7 +53,7 @@ function _countDays(historyArray) {
   const array = Array.from(historyArray);
 
   array.forEach((commit) => {
-    setOfDays.add(commit.day);
+    setOfDays.add(`${commit.day} ${commit.month}`);
   });
 
   return setOfDays.size;
@@ -90,19 +90,19 @@ async function getLastTime() {
 async function getMonth(year, month) {
   const monthHistory = await database.findTSMonth(year, month);
 
-  return _commitsHistoryToDateArray(monthHistory);
+  return { findMonth: _commitsHistoryToDateArray(monthHistory) };
 }
 
 async function getYear(year) {
   const yearHistory = await database.findTSYear(year);
 
-  return _commitsHistoryToDateArray(yearHistory);
+  return { findYear: _commitsHistoryToDateArray(yearHistory) };
 }
 
 async function getAllTimeTS() {
   const allTimeHistory = await database.findAllTimeTS();
 
-  return _commitsHistoryToDateArray(allTimeHistory);
+  return { findAllTime: _commitsHistoryToDateArray(allTimeHistory) };
 }
 
 async function getMinTimeBetweenMonth(year, month) {
@@ -226,7 +226,7 @@ function _msToDate(ms) {
 }
 
 function _clearTime(date) {
-  return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+  return `${date.getUTCHours()}:${date.getUTCMinutes()}:${date.getUTCSeconds()}`;
 }
 
 module.exports = {
